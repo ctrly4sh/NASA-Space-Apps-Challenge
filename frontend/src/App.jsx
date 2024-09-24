@@ -3,7 +3,7 @@ import React, { useRef } from "react";
 function App() {
   return (
     <div>
-      <h1>Hello World!</h1>
+      <h1>Nasa Space Apps Challenge</h1>
     </div>
   );
 }
