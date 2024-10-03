@@ -15,6 +15,7 @@ export interface PlanetData {
     rings?: RingsData;
     orbitalPosition?: Vector3;
     displayStats: DisplayStats;
+    planets: PlanetData[];
 }
 
 export interface RingsData {

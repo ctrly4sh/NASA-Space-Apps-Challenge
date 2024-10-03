@@ -47,11 +47,12 @@ function SolarSystem() {
             rings={planet.rings}
             orbitProgress={planetOrbitProgress[planet.name]}
             displayStats={planet.displayStats}
+            planets={planetsData}
           />
         ))}
       <PlanetsUpdater setPlanetOrbitProgress={setPlanetOrbitProgress} planets={planetsData} />
       </Canvas>
-      <PlanetMenu planets={planetsData} />
+      {/* <PlanetMenu planets={planetsData} /> */}
       <SpeedControl />
       <AnimatePresence>
         <PlanetDetail />

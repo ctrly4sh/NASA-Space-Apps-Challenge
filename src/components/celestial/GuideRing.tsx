@@ -1,6 +1,8 @@
 import { Torus } from '@react-three/drei';
 import { useCameraContext } from '../../contexts/CameraContext';
 import { useSpring, animated } from '@react-spring/web';
+import { useEffect, useRef, useState } from 'react';
+import { useFrame } from '@react-three/fiber';
 
 interface RingProps {
   radius: number;

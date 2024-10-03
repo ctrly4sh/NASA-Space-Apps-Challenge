@@ -22,7 +22,7 @@ interface SpeedControlProviderProps {
 }
 
 export const SpeedControlProvider: React.FC<SpeedControlProviderProps> = ({ children }) => {
-  const [speedFactor, setSpeedFactorState] = useState(1);
+  const [speedFactor, setSpeedFactorState] = useState(0.1);
   const [lastSpeedFactor, setLastSpeedFactor] = useState(1);
 
   const setSpeedFactor = (value: number) => {

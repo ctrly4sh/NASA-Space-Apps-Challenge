@@ -1,18 +1,19 @@
 import React, { useRef, useEffect } from 'react';
 import { useThree, useFrame } from '@react-three/fiber';
 import { Vector3 } from 'three';
-import { OrbitControls as DreiOrbitControls } from '@react-three/drei';
-import { OrbitControls } from 'three-stdlib';
+import { OrbitControls as DreiOrbitControls, TrackballControls } from '@react-three/drei';
+import { OrbitControls, TrackballControls as TrackType } from 'three-stdlib';
 import { useSelectedPlanet } from '../../contexts/SelectedPlanetContext';
 import { usePlanetPositions } from '../../contexts/PlanetPositionsContext';
 import { useCameraContext } from '../../contexts/CameraContext';
 import { useCameraSetup } from '../../hooks/useCameraSetup';
+import planetsData from '../../lib/planetsData';
 
 const CameraController: React.FC = () => {
   useCameraSetup();
   
   // Refs
-  const orbitControlsRef = useRef<OrbitControls>(null);
+  const orbitControlsRef = useRef<TrackType>(null);
   const invisibleTargetRef = useRef(new Vector3()).current;
   
   // State and constants
@@ -121,9 +122,8 @@ const CameraController: React.FC = () => {
   });
 
   return (
-    <DreiOrbitControls
+    <TrackballControls
       ref={orbitControlsRef}
-      enableZoom={true}
       rotateSpeed={0.7}
       zoomSpeed={0.7}
     />
