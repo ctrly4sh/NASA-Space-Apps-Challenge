@@ -47,7 +47,7 @@ const Planet: React.FC<ExtendedPlanetData> = ({
   const satelitePositionZ = z + Math.sin(0) * 0.3;
   const satellitePosition = (name === 'Earth') ? [satelitePositionX,0,satelitePositionZ] : null;
 
-  const moonSpeed = 0.03; 
+  const moonSpeed = 0.02; 
   const [moonOrbitProgress, setMoonOrbitProgress] = useState(0);
 
   useFrame(() => {
