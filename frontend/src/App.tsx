@@ -1,12 +1,12 @@
-function App() {
-    return (
-        <div className={"justify-center flex items-center  flex-col min-h-screen bg-slate-900"}>
-            <div className="text-center text-3xl text-white">
-                Nasa space apps challenge
-            </div>
+import SolarSystem from './components/SolarSystem'
+import Providers from './Providers'
 
+export default function App() {
+    return (
+        <Providers>
+        <div className='w-screen h-screen overflow-hidden'>
+          <SolarSystem />
         </div>
+      </Providers>
     )
 }
-
-export default App
