@@ -16,11 +16,19 @@ const Sun: React.FC<SunProps> = ({ position, radius }) => {
         <MeshWobbleMaterial
           map={sunTexture}
           emissive="#FFFF99"
-          emissiveIntensity={0.012}
+          emissiveIntensity={0.2}
           factor={0.1}
           speed={0.05}
         />
       </Sphere>
+      <pointLight
+        position={position}
+        intensity={10} 
+        distance={100}  
+        decay={2}       
+        color="#ffffff" 
+        castShadow={true}
+      />
     </mesh>
   );
 };

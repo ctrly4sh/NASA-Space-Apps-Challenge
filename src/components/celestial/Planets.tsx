@@ -11,6 +11,7 @@ import { useSelectedPlanet } from '../../contexts/SelectedPlanetContext';
 import { useSpeedControl } from '../../contexts/SpeedControlContext';
 import { useCameraContext } from '../../contexts/CameraContext';
 import Satellite from './Satellite';
+import Moon from './Moon';
 
 type ExtendedPlanetData = PlanetData & { orbitProgress: number };
 
@@ -42,12 +43,24 @@ const Planet: React.FC<ExtendedPlanetData> = ({
   const [isHover,setIsHover] = useState(false);
   const [edgesGeometry,setEdgesGeometry] = useState<EdgesGeometry<SphereGeometry> | null>(null);
 
-  const satellitePosition = (name === 'Earth') ? [-0.1, 0, -0.200] : null; // Adjust the offset as needed
+  const satelitePositionX = x + Math.cos(0) * 0.2;
+  const satelitePositionZ = z + Math.sin(0) * 0.3;
+  const satellitePosition = (name === 'Earth') ? [satelitePositionX,0,satelitePositionZ] : null;
+
+  const moonSpeed = 0.03; 
+  const [moonOrbitProgress, setMoonOrbitProgress] = useState(0);
+
+  useFrame(() => {
+    setMoonOrbitProgress((prev) => prev + moonSpeed);
+  });
+
+  const moonPositionX = Math.cos(moonOrbitProgress) - 0.1;
+  const moonPositionZ = Math.sin(moonOrbitProgress) - 0.0003;
 
   useFrame(() => {
     if (ref.current) {
       const rotationPerFrame = (rotationSpeed * (Math.PI / 180)) / 60;
-      ref.current.rotation.y += rotationPerFrame;
+      ref.current.rotation.y -= rotationPerFrame;
     }
   });
 
@@ -87,15 +100,28 @@ const Planet: React.FC<ExtendedPlanetData> = ({
           {
             (isHover && edgesGeometry!=null) && <lineSegments args={[edgesGeometry, new LineBasicMaterial({ color: 'skyblue', linewidth: 2 })]} />
           }
-        {rings && (
-          <SaturnRings
-            texturePath={rings.texturePath}
-            innerRadius={rings.size[0]}
-            outerRadius={rings.size[1]}
-          />
-        )}
-        {satellitePosition && <Satellite position={satellitePosition} />}
+          {rings && (
+            <SaturnRings
+              texturePath={rings.texturePath}
+              innerRadius={rings.size[0]}
+              outerRadius={rings.size[1]}
+            />
+          )}
+          {name === 'Earth' && (
+            <>
+              <pointLight position={[moonPositionX, 0, moonPositionZ]} intensity={0.8} color="white" />
+              
+              <mesh position={[moonPositionX, 0,moonPositionZ]}>
+                <Sphere args={[0.05, 32, 32]}>
+                  <meshStandardMaterial emissive="white" emissiveIntensity={1.5} color="white" />
+                </Sphere>
+              </mesh>
+            </>
+            
+          )}
       </mesh>
+      {satellitePosition && <Satellite position={satellitePosition} />}
+      
       <Ring radius={orbitRadius} />
     </>
   );
